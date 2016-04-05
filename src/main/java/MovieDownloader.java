@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Code adapted from Google.
  *
  * YOUR TASK: Add comments explaining how this code works!
- * 
+ *
  * @author Joel Ross & Kyungmin Lee
  */
 public class MovieDownloader {
@@ -37,10 +37,12 @@ public class MovieDownloader {
 
 			URL url = new URL(urlString);
 
+      // build up the request
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestMethod("GET");
 			urlConnection.connect();
 
+      // get response
 			InputStream inputStream = urlConnection.getInputStream();
 			StringBuffer buffer = new StringBuffer();
 			if (inputStream == null) {
@@ -63,10 +65,10 @@ public class MovieDownloader {
 			results = results.replace("},", "},\n");
 
 			movies = results.split("\n");
-		} 
+		}
 		catch (IOException e) {
 			return null;
-		} 
+		}
 		finally {
 			if (urlConnection != null) {
 				urlConnection.disconnect();
@@ -74,7 +76,7 @@ public class MovieDownloader {
 			if (reader != null) {
 				try {
 					reader.close();
-				} 
+				}
 				catch (IOException e) {
 				}
 			}
@@ -84,15 +86,16 @@ public class MovieDownloader {
 	}
 
 
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		Scanner sc = new Scanner(System.in);
 
 		boolean searching = true;
 
-		while(searching) {					
+		while(searching) {
 			System.out.print("Enter a movie name to search for or type 'q' to quit: ");
 			String searchTerm = sc.nextLine().trim();
+      // can't search for any movie starting with q, instead it will just quit
 			if(searchTerm.toLowerCase().startsWith("q")){
 				searching = false;
 			}
